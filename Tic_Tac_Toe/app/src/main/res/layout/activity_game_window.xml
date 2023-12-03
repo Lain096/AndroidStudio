@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameWindow">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/lightBlue">
+
+    <TextView
+        android:id="@+id/lblTurnos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Turno de 0"
+        android:textSize="35dp"
+        android:padding="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:id="@+id/lyVictorias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/jugador1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jugador 1: 0"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/jugador2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jugador 2: 0"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+  <LinearLayout
+      android:id="@+id/tablero"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_marginTop="50dp">
+      <LinearLayout
+          android:id="@+id/fila1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
+        <ImageView
+            android:id="@+id/f11"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/shape"
+            android:layout_margin="5dp"/>
+          <ImageView
+              android:id="@+id/f12"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/shape"
+              android:layout_margin="5dp"/>
+          <ImageView
+              android:id="@+id/f13"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/shape"
+              android:layout_margin="5dp"/>
+      </LinearLayout>
+      <LinearLayout
+          android:id="@+id/fila2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
+          <ImageView
+              android:id="@+id/f21"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/shape"
+              android:layout_margin="5dp"/>
+          <ImageView
+              android:id="@+id/f22"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/shape"
+              android:layout_margin="5dp"/>
+          <ImageView
+              android:id="@+id/f23"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/shape"
+              android:layout_margin="5dp"/>
+      </LinearLayout>
+      <LinearLayout
+          android:id="@+id/fila3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
+          <ImageView
+              android:id="@+id/f31"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/shape"
+              android:layout_margin="5dp"/>
+          <ImageView
+              android:id="@+id/f32"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/shape"
+              android:layout_margin="5dp"/>
+          <ImageView
+              android:id="@+id/f33"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/shape"
+              android:layout_margin="5dp"/>
+      </LinearLayout>
+
+  </LinearLayout>
+<Button
+    android:id="@+id/reiniciar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp"
+    android:layout_marginTop="50dp"
+    android:text="Reiniciar"
+    android:background="@color/material_dynamic_neutral_variant100"/>
+
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
