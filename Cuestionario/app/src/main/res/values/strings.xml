@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Cuestionario</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fraccionTotal">/5</string>
+    <string name="pregunta1">¿Qué significa la sigla URL en el contexto de la informática?</string>
+    <string name="respuestaFalsa1Pregunta1">Unrestricted Resource Language</string>
+    <string name="respuestaVerdaderaPregunta1">Universal Resource Locator</string>
+    <string name="respuestaFalsa2Pregunta1">Uncommon Resource Link</string>
+    <string name="pregunta2">¿Cual de las siguientes preguntas es un lenguaje de programación?</string>
+    <string name="pregunta2RespuestaVerdadera1">Python</string>
+    <string name="pregunta2RespuestaVerdadera2">Java</string>
+    <string name="pregunta2RespuestaFalsa">HTML</string>
+    <string name="pregunta2RespuestaVerdadera3">Angular</string>
+    <string name="pregunta3">¿Qué protocolo se utiliza comúnmente para la transferencia de archivos en redes?</string>
+    <string name="pregunta4">¿Cual de estas imágenes SI es una base de datos relacional?</string>
+    <string name="pregunta5">¿Como se llama la protagonista de la pelicula \"Barbie \" ?</string>
+    <string name="respuestaVerdaderaPregunta3">FTP</string>
+    <string name="respuestaCorrectaPregunta5">Barbie</string>
+    <string name="empezarCuestionario">Volver a Empezar</string>
+
+    <string-array name="solucionesPregunta3">
+        <item>HTTP</item>
+        <item>FTP</item>
+        <item>TCP</item>
+        <item>IP</item>
+    </string-array>
+</resources>
