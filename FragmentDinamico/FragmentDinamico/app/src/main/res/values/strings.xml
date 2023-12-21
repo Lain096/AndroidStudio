@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FragmentDinamico</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="directores">Directores</string>
+    <string name="protagonistas">Actores/Actrices</string>
+    <string name="sinopsis">Sinopsis</string>
+    <string name="titulo">JAVAFLIX</string>
+</resources>
