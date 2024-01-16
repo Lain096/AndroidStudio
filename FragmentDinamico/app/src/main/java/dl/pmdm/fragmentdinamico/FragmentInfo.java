@@ -1,6 +1,5 @@
 package dl.pmdm.fragmentdinamico;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -15,15 +14,20 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.List;
+
 
 public class FragmentInfo extends Fragment {
 
+
     private static Pelicula pelicula;
+    private List<Pelicula> listaPelis;
+    private static Integer posicion;
 
     private static TextView tituloPeli, txtRatingPeli, directoresPeli, actoresPeli, sinopsisPeli;
     private static ImageView imgPeli;
 
-    private RatingBar rating;
+    private static RatingBar rating;
 
 
     public FragmentInfo() {
@@ -33,7 +37,7 @@ public class FragmentInfo extends Fragment {
 
     // definir la interfaz en la interfaz
     public interface interfaceFragmento{
-         void peliculaModificada(Pelicula pelicula);
+         void peliculaModificada(Integer posicion);
     }
 
     interfaceFragmento interfFragment;
@@ -48,26 +52,15 @@ public class FragmentInfo extends Fragment {
 
 
 
-    public static FragmentInfo newInstance(String param1) {
+    public static FragmentInfo newInstance(String param1, Integer pos) {
         FragmentInfo fragment = new FragmentInfo();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
+        System.out.println(param1);
 
-        if(param1.equals("bojack")){
-            pelicula = peliculasBuilder.getPeliculas().getPelicula1();
-
-        }
-        if(param1.equals("brian")){
-            pelicula = peliculasBuilder.getPeliculas().getPelicula2();
-        }
-        if(param1.equals("dragon")){
-            pelicula = peliculasBuilder.getPeliculas().getPelicula3();
-        }
-        if(param1.equals("aterriza")){
-            pelicula = peliculasBuilder.getPeliculas().getPelicula4();
-        }
-
+        posicion = pos;
+        pelicula = PeliculasBuilder.getListaPelis().stream().filter(x -> x.getCodigo().equals(param1)).findFirst().get();
 
         return fragment;
     }
@@ -108,7 +101,7 @@ public class FragmentInfo extends Fragment {
 
                 pelicula.setRating(rating);
                 txtRatingPeli.setText(rating + "/5.0");
-                interfFragment.peliculaModificada(pelicula);
+                interfFragment.peliculaModificada(posicion);
 
             }
         });
@@ -124,6 +117,8 @@ public class FragmentInfo extends Fragment {
         actoresPeli.setText(peli.getActores().toString());
         sinopsisPeli.setText(peli.getSinopsis());
         imgPeli.setImageResource(peli.getImagen());
+        rating.setRating(peli.getRating());
+
 
 
     }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Pelicula implements Serializable {
 
-    private String titulo, sinopsis;
+    private String titulo, sinopsis, codigo;
     private int imagen;
     private float ratingScore = 0;
     private ArrayList<String> directores;
@@ -67,4 +67,11 @@ public class Pelicula implements Serializable {
     public float getRating() {
         return ratingScore; }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 }

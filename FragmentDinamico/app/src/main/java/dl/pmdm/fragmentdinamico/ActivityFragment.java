@@ -14,44 +14,29 @@ public class ActivityFragment extends AppCompatActivity  {
 
 
     FragmentInfo.interfaceFragmento fragmento;
-    String pelicula;
-    Intent intentMain;
-    Fragment fragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+        Intent intentMain = getIntent();
 
-        intentMain = getIntent();
+        String pelicula = intentMain.getExtras().getString("pelicula");
+        Integer posicion = intentMain.getExtras().getInt("pos");
 
-        if(intentMain.hasExtra("bojack")){
-            pelicula = "bojack";
-        }
-
-        if(intentMain.hasExtra("brian")){
-            pelicula = "brian";
-        }
-
-        if(intentMain.hasExtra("dragon")){
-            pelicula = "dragon";
-        }
-
-        if(intentMain.hasExtra("aterriza")){
-            pelicula = "aterriza";
-        }
-
-        fragment = FragmentInfo.newInstance(pelicula);
+        Fragment fragment = FragmentInfo.newInstance(pelicula, posicion);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
-        ft.replace(R.id.fragmentContainerView2, fragment);
+        ft.replace(R.id.fragmentContainerView, fragment);
         ft.commit();
 
-
-
-
     }
+
+
+
 
 }
