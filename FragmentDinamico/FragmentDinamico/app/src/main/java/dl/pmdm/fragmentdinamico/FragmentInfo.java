@@ -52,15 +52,15 @@ public class FragmentInfo extends Fragment {
 
 
 
-    public static FragmentInfo newInstance(String param1, Integer pos) {
+    public static FragmentInfo newInstance(Pelicula param1, Integer pos) {
         FragmentInfo fragment = new FragmentInfo();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
-        System.out.println(param1);
-
         posicion = pos;
-        pelicula = PeliculasBuilder.getListaPelis().stream().filter(x -> x.getCodigo().equals(param1)).findFirst().get();
+        pelicula = PeliculasBuilder.getListaPelis().stream().filter(x -> x.getCodigo().equals(param1.getCodigo())).findFirst().get();
+        //pelicula = PeliculasBuilder.getListaPelis().stream().filter(x -> x.getCodigo().equals(param1)).findFirst().get();
+
 
         return fragment;
     }
@@ -110,14 +110,22 @@ public class FragmentInfo extends Fragment {
         return vista;
     }
 
-    public static void crearPantalla(Pelicula peli){
+    public void crearPantalla(Pelicula peli){
 
         tituloPeli.setText(peli.getTitulo());
         directoresPeli.setText(peli.getDirectores().toString());
         actoresPeli.setText(peli.getActores().toString());
         sinopsisPeli.setText(peli.getSinopsis());
         imgPeli.setImageResource(peli.getImagen());
-        rating.setRating(peli.getRating());
+        imgPeli.setBackgroundResource(getResources().getIdentifier(peli.getCodigo(), "drawable", getContext().getPackageName()));
+
+        if (peli.getRating() == null){
+            peli.setRating(0f);
+            rating.setRating(peli.getRating());
+        } else{
+            rating.setRating(peli.getRating());
+        }
+
 
 
 

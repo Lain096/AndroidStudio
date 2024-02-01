@@ -24,10 +24,13 @@ public class ActivityFragment extends AppCompatActivity  {
 
         Intent intentMain = getIntent();
 
+        Pelicula peli = (Pelicula)intentMain.getSerializableExtra("peli");
+
         String pelicula = intentMain.getExtras().getString("pelicula");
         Integer posicion = intentMain.getExtras().getInt("pos");
 
-        Fragment fragment = FragmentInfo.newInstance(pelicula, posicion);
+        Fragment fragment = FragmentInfo.newInstance(peli, posicion);
+       // Fragment fragment = FragmentInfo.newInstance(pelicula, posicion);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 

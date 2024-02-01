@@ -5,12 +5,13 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Pelicula implements Serializable {
 
     private String titulo, sinopsis, codigo;
     private int imagen;
-    private float ratingScore = 0;
+    private Float ratingScore = null;
     private ArrayList<String> directores;
     private ArrayList<String> actores;
 
@@ -53,6 +54,10 @@ public class Pelicula implements Serializable {
         directores.add(director);
     }
 
+    public void addListaDirectores(List<String> listaDir) {directores.addAll(listaDir);}
+
+    public void addListaActores(List<String> listaActores) {actores.addAll(listaActores);}
+
     public ArrayList<String> getDirectores() {
         return directores;
     }
@@ -61,10 +66,10 @@ public class Pelicula implements Serializable {
         return actores;
     }
 
-    public void setRating(float rating) {
+    public void setRating(Float rating) {
         this.ratingScore = rating; }
 
-    public float getRating() {
+    public Float getRating() {
         return ratingScore; }
 
     public String getCodigo() {
