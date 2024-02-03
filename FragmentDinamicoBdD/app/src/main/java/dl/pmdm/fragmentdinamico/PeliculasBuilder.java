@@ -1,6 +1,7 @@
 package dl.pmdm.fragmentdinamico;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -12,21 +13,21 @@ public class PeliculasBuilder {
 
      private static Pelicula pelicula;
      private static PeliculasBuilder crear;
-    public static void crearPeliculas() {
-
-
-            crear = new PeliculasBuilder();
-    }
-
-    public static PeliculasBuilder getPeliculas(){
-        if (crear == null) {
-
-           crearPeliculas();
-
-        }
-
-        return crear;
-    }
+//    public static void crearPeliculas() {
+//
+//
+//            crear = new PeliculasBuilder();
+//    }
+//
+//    public static PeliculasBuilder getPeliculas(){
+//        if (crear == null) {
+//
+//           crearPeliculas();
+//
+//        }
+//
+//        return crear;
+//    }
 
     public static List<Pelicula> getListaPelisDB(Context contexto){
         List<Pelicula> list = new ArrayList<>();
@@ -72,6 +73,55 @@ public class PeliculasBuilder {
         return list;
     }
 
+    public static void insertPelicula(Pelicula peli){
+        PeliculasHelper peliH = new PeliculasHelper(MainActivity.contexto);
+        SQLiteDatabase db = peliH.getWritableDatabase();
+
+        String sql = "INSERT INTO PELICULAS (title, code, sinopsis, director, casting, watched) VALUES " +
+                "('" + peli.getTitulo() + "', '" + peli.getCodigo() + "', '" + peli.getSinopsis() + "', '" + peli.getDirectores() + "', '" + peli.getActores().get(0) + "', " +  "0" + ")";
+        db.execSQL(sql);
+    }
+
+    public static void eliminarPelicula(Pelicula peli){
+
+        PeliculasHelper peliH = new PeliculasHelper(MainActivity.contexto);
+        SQLiteDatabase db = peliH.getWritableDatabase();
+
+        String sql = "DELETE FROM PELICULAS WHERE code = '" + peli.getCodigo() + "'";
+        db.execSQL(sql);
+    }
+
+    public static void modificarRatingPelicula(Pelicula peli, float valor) {
+
+        PeliculasHelper ph = new PeliculasHelper(MainActivity.contexto);
+
+        SQLiteDatabase sb = ph.getWritableDatabase();
+
+        sb.execSQL("UPDATE PELICULAS " +
+                "SET ratingScore = " + valor +
+                " WHERE code LIKE '" + peli.getCodigo() + "'");
+
+
+    }
+
+    public static void modificarVistaPelicula(Pelicula peli, boolean vista) {
+
+        PeliculasHelper ph = new PeliculasHelper(MainActivity.contexto);
+
+        SQLiteDatabase sb = ph.getWritableDatabase();
+
+        int valor = 0;
+
+        if (vista) {
+            valor = 1;
+        }
+
+        sb.execSQL("UPDATE PELICULAS " +
+                "SET watched = " + valor +
+                " WHERE code LIKE '" + peli.getCodigo() + "'");
+
+
+    }
 
 
 

@@ -24,6 +24,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
 
     private List<Pelicula> listaPelis;
     private Boolean isTablet = false;
+    private boolean isWatched = false;
     private FragmentManager fm;
 
 
@@ -50,15 +51,17 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Pelicula peli = listaPelis.get(position);
+            Pelicula peli = listaPelis.get(position);
 
             ((TextView) holder.itemView.findViewById(R.id.txtTituloPeli)).setText(peli.getTitulo());
             ((TextView) holder.itemView.findViewById(R.id.idSinopsisPeli)).setText(peli.getSinopsis());
-          //  ((ImageView) holder.itemView.findViewById(R.id.imgPeli)).setImageResource(peli.getImagen());
             Context context = holder.itemView.getContext();
             ((ImageView)holder.itemView.findViewById(R.id.imgPeli)).setBackgroundResource(context.getResources().getIdentifier(peli.getCodigo(), "drawable", context.getPackageName()));
             ((RatingBar) holder.itemView.findViewById(R.id.ratingPeli)).setVisibility(View.GONE);
 
+            if(peli.getEsVista()){
+                ((ImageView)holder.itemView.findViewById(R.id.imgWatchedPeli)).setVisibility(View.VISIBLE);
+            }
 
             if(peli.getRating() != null){
                 ((RatingBar) holder.itemView.findViewById(R.id.ratingPeli)).setVisibility(View.VISIBLE);
@@ -78,11 +81,13 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
 
                    // Fragment fragment = FragmentInfo.newInstance(peli.getCodigo(), position);
                   //  Fragment fragment = FragmentInfo.newInstance(peli, position);
-                    Fragment fragment = FragmentInfo.newInstance(peli);
+                   // Fragment fragment = FragmentInfo.newInstance(peli);
 
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.fragmentContainerViewTablet, fragment);
-                    ft.commit();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("peli", peli);
+
+                    fm.beginTransaction().replace(R.id.fragmentContainerViewTablet, FragmentInfo.class, bundle).commit();
+
 
 
                 }else {

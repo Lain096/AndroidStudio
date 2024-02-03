@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/colorMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/colorMain" />
+    <item
+        android:id="@+id/colorNegro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/colorNegro" />
+    <item
+        android:id="@+id/colorMarron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/colorMarron" />
+</menu>

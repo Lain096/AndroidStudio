@@ -1,32 +1,38 @@
 package dl.pmdm.fragmentdinamico;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 
 public class FragmentInfo extends Fragment {
 
-
+    private SharedPreferences prefs;
+    private LinearLayout contenedorFragment;
     private static Pelicula pelicula;
     private List<Pelicula> listaPelis;
     private static Integer posicion;
-
+    private CheckBox isVista;
     private TextView tituloPeli, txtRatingPeli, directoresPeli, actoresPeli, sinopsisPeli;
-    private ImageView imgPeli;
+    private ImageView imgPeli, borrarPelicula;
+
 
     private RatingBar rating;
 
@@ -37,9 +43,9 @@ public class FragmentInfo extends Fragment {
 
 
     // definir la interfaz en la interfaz
-    public interface interfaceFragmento{
+    public interface interfaceFragmento {
 
-         void peliculaModificada();
+        void peliculaModificada();
     }
 
     interfaceFragmento interfFragment;
@@ -53,14 +59,14 @@ public class FragmentInfo extends Fragment {
     }
 
 
-//, Integer pos
+    //, Integer pos
     public static FragmentInfo newInstance(Pelicula param1) {
         FragmentInfo fragment = new FragmentInfo();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
         // posicion = pos;
-       // pelicula = PeliculasBuilder.getListaPelisDB().stream().filter(x -> x.getCodigo().equals(param1.getCodigo())).findFirst().get();
+        // pelicula = PeliculasBuilder.getListaPelisDB().stream().filter(x -> x.getCodigo().equals(param1.getCodigo())).findFirst().get();
         //pelicula = PeliculasBuilder.getListaPelis().stream().filter(x -> x.getCodigo().equals(param1)).findFirst().get();
 
 
@@ -68,11 +74,9 @@ public class FragmentInfo extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
     }
@@ -82,16 +86,23 @@ public class FragmentInfo extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        if(getArguments() != null){
+
+        if (getArguments() != null) {
 
             pelicula = (Pelicula) getArguments().getSerializable("peli");
 
         }
 
 
-
         View vista = inflater.inflate(R.layout.fragment_info, container, false);
 
+        prefs = getActivity().getSharedPreferences("file_fondo", Context.MODE_PRIVATE);
+        int color = prefs.getInt("color", R.color.blueblack);
+
+        vista.setBackgroundColor(ContextCompat.getColor(getActivity().getApplicationContext(), color));
+
+        borrarPelicula = (ImageView) vista.findViewById(R.id.borrarPelicula);
+        isVista = (CheckBox) vista.findViewById(R.id.checkVista);
         rating = (RatingBar) vista.findViewById(R.id.ratingPelicula);
         tituloPeli = (TextView) vista.findViewById(R.id.tituloPelicual);
         txtRatingPeli = (TextView) vista.findViewById(R.id.txtRatingPelicula);
@@ -101,8 +112,6 @@ public class FragmentInfo extends Fragment {
 
         imgPeli = (ImageView) vista.findViewById(R.id.imagePelicula);
 
-
-
         crearPantalla(pelicula);
 
 
@@ -110,12 +119,38 @@ public class FragmentInfo extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
-                modificarPelicula(pelicula, rating);
+                PeliculasBuilder.modificarRatingPelicula(pelicula, rating);
 
-                //pelicula.setRating(rating);
                 txtRatingPeli.setText(rating + "/5.0");
                 interfFragment.peliculaModificada();
 
+            }
+        });
+
+        isVista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (isVista.isChecked()) {
+                    PeliculasBuilder.modificarVistaPelicula(pelicula, true);
+                    interfFragment.peliculaModificada();
+                } else {
+                    PeliculasBuilder.modificarVistaPelicula(pelicula, false);
+                    interfFragment.peliculaModificada();
+                }
+
+            }
+
+        });
+
+        borrarPelicula.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PeliculasBuilder.eliminarPelicula(pelicula);
+                getActivity().finish();
+                Toast.makeText(getContext(), "Pelicula eliminada:" + pelicula.getTitulo(), Toast.LENGTH_SHORT).show();
+                interfFragment.peliculaModificada();
             }
         });
 
@@ -123,7 +158,7 @@ public class FragmentInfo extends Fragment {
         return vista;
     }
 
-    public void crearPantalla(Pelicula peli){
+    public void crearPantalla(Pelicula peli) {
 
         tituloPeli.setText(peli.getTitulo());
         directoresPeli.setText(peli.getDirectores().toString());
@@ -132,32 +167,54 @@ public class FragmentInfo extends Fragment {
         imgPeli.setImageResource(peli.getImagen());
         imgPeli.setBackgroundResource(getResources().getIdentifier(peli.getCodigo(), "drawable", getContext().getPackageName()));
 
-        if (peli.getRating() == null){
+        if (peli.getRating() == null) {
             rating.setRating(0f);
-        } else{
+        } else {
             rating.setRating(peli.getRating());
         }
 
-
-
-
-    }
-
-    private void modificarPelicula(Pelicula peli, float valor){
-
-       PeliculasHelper ph = new PeliculasHelper(MainActivity.contexto);
-
-       SQLiteDatabase sb = ph.getWritableDatabase();
-
-       sb.execSQL("UPDATE PELICULAS " +
-               "SET ratingScore = " + valor +
-                ", watched = 1 " +
-               "WHERE code LIKE '" + peli.getCodigo() + "'");
-
+        if(peli.getEsVista()){
+            isVista.setChecked(true);
+        }
 
     }
 
+//    private void modificarRatingPelicula(Pelicula peli, float valor) {
+//
+//        PeliculasHelper ph = new PeliculasHelper(MainActivity.contexto);
+//
+//        SQLiteDatabase sb = ph.getWritableDatabase();
+//
+//        sb.execSQL("UPDATE PELICULAS " +
+//                "SET ratingScore = " + valor +
+//                " WHERE code LIKE '" + peli.getCodigo() + "'");
+//
+//
+//    }
 
 
+//    private void modificarVistaPelicula(Pelicula peli, boolean vista) {
+//
+//        PeliculasHelper ph = new PeliculasHelper(MainActivity.contexto);
+//
+//        SQLiteDatabase sb = ph.getWritableDatabase();
+//
+//        int valor = 0;
+//
+//        if (vista) {
+//            valor = 1;
+//        }
+//
+//        sb.execSQL("UPDATE PELICULAS " +
+//                "SET watched = " + valor +
+//                " WHERE code LIKE '" + peli.getCodigo() + "'");
+//
+//
+//    }
 
+    public void cambiarColorFondo(){
+        int color = prefs.getInt("color", R.color.blueblack);
+        contenedorFragment.setBackgroundColor(ContextCompat.getColor(getActivity().getApplicationContext(), color));
+
+    }
 }

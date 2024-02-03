@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FragmentDinamico</string>
+    <string name="directores">Directors</string>
+    <string name="protagonistas">Actors/Actresses</string>
+    <string name="sinopsis">Synopsis</string>
+    <string name="title_activity_crear_pelicula">Create Movie</string>
+    <string name="txtSwitch">Show Valorated Films</string>
+    <string name="txtCheckBox">Show watched films</string>
+    <string name="colorMarron">Brownish</string>
+    <string name="colorNegro">Bluish</string>
+    <string name="colorMain">Dark bluish</string>
+    <string name="guardar">Save</string>
+    <string name="buscar_imagen">Search Image</string>
+    <string name="crearTitulo">Title</string>
+</resources>
