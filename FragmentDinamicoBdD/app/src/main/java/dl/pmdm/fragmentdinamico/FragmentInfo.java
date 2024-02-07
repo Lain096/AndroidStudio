@@ -46,6 +46,7 @@ public class FragmentInfo extends Fragment {
     public interface interfaceFragmento {
 
         void peliculaModificada();
+        void cerrarFragment(Fragment fragment);
     }
 
     interfaceFragmento interfFragment;
@@ -99,7 +100,7 @@ public class FragmentInfo extends Fragment {
         prefs = getActivity().getSharedPreferences("file_fondo", Context.MODE_PRIVATE);
         int color = prefs.getInt("color", R.color.blueblack);
 
-        vista.setBackgroundColor(ContextCompat.getColor(getActivity().getApplicationContext(), color));
+
 
         borrarPelicula = (ImageView) vista.findViewById(R.id.borrarPelicula);
         isVista = (CheckBox) vista.findViewById(R.id.checkVista);
@@ -148,9 +149,11 @@ public class FragmentInfo extends Fragment {
             @Override
             public void onClick(View v) {
                 PeliculasBuilder.eliminarPelicula(pelicula);
-                getActivity().finish();
+
                 Toast.makeText(getContext(), "Pelicula eliminada:" + pelicula.getTitulo(), Toast.LENGTH_SHORT).show();
                 interfFragment.peliculaModificada();
+
+                interfFragment.cerrarFragment(FragmentInfo.this);
             }
         });
 
@@ -217,4 +220,6 @@ public class FragmentInfo extends Fragment {
         contenedorFragment.setBackgroundColor(ContextCompat.getColor(getActivity().getApplicationContext(), color));
 
     }
+
+    
 }

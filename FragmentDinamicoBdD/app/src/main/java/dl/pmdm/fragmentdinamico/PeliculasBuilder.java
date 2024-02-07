@@ -29,6 +29,8 @@ public class PeliculasBuilder {
 //        return crear;
 //    }
 
+
+
     public static List<Pelicula> getListaPelisDB(Context contexto){
         List<Pelicula> list = new ArrayList<>();
         PeliculasHelper peliH = new PeliculasHelper(contexto);
