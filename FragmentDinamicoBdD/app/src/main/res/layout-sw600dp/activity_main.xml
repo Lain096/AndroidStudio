@@ -44,7 +44,7 @@
                     android:textColor="@color/red"
                     android:textSize="100sp"
                     android:layout_weight="1"/>
-
+<!--
                 <ImageView
                     android:id="@+id/iconGuardar"
                     android:layout_width="wrap_content"
@@ -53,6 +53,7 @@
                     app:srcCompat="@android:drawable/ic_menu_save"
                     app:tint="@color/red"
                     android:layout_weight="0.8"/>
+                    -->
 
 
             </LinearLayout>
@@ -79,10 +80,9 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerViewTablet"
-                android:layout_width="583dp"
+                android:layout_width="473dp"
                 android:layout_height="match_parent"
-               android:layout_marginLeft="100sp"
-                />
+                android:layout_marginLeft="100sp" />
         </LinearLayout>
 
         <LinearLayout

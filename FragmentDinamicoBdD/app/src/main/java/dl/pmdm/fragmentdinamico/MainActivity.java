@@ -3,6 +3,7 @@ package dl.pmdm.fragmentdinamico;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInfo.inte
     private SharedPreferences prefs;
     private View contenedor;
 
-    private ImageView imgGuardar;
+   // private ImageView imgGuardar;
 
 
     @Override
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInfo.inte
         checkBox = (CheckBox)findViewById(R.id.chkVistas);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         contenedor = findViewById(R.id.contenedor);
-        imgGuardar = findViewById(R.id.iconGuardar);
+      //  imgGuardar = findViewById(R.id.iconGuardar);
 
         setSupportActionBar(toolbar);
 
@@ -116,13 +117,13 @@ public class MainActivity extends AppCompatActivity implements FragmentInfo.inte
             }
         });
 
-        imgGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(contexto, CrearPelicula.class);
-                startActivity(i);
-            }
-        });
+//        imgGuardar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(contexto, CrearPelicula.class);
+//                startActivity(i);
+//            }
+//        });
 
         //endregion
 
@@ -149,7 +150,10 @@ public class MainActivity extends AppCompatActivity implements FragmentInfo.inte
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int opcion = item.getItemId();
 
-
+        if(opcion == R.id.iconGuardar){
+            Intent i = new Intent(contexto, CrearPelicula.class);
+                        startActivity(i);
+        }
 
         if (opcion == R.id.colorMain) {
             cambiarColor(R.color.blueblack);
@@ -216,6 +220,12 @@ public class MainActivity extends AppCompatActivity implements FragmentInfo.inte
         recycler.setAdapter(new PeliculaAdapter(PeliculasBuilder.getListaPelisDB(this), getSupportFragmentManager(), isTablet));
         recycler.setLayoutManager(new LinearLayoutManager(contexto));
 
+    }
+
+    @Override
+    public void cerrarFragment(Fragment fragment) {
+
+        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
     }
 
     //endregion
