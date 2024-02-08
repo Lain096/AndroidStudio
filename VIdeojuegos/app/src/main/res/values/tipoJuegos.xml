@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tipoJuegos">
+        <item>Acción</item>
+        <item>Aventura</item>
+        <item>Deportes</item>
+        <item>Estrategia</item>
+        <item>Simulación</item>
+        <item>Rol</item>
+        <item>Plataformas</item>
+        <item>Shooter</item>
+        <item>Survival</item>
+        <item>Indie</item>
+    </string-array>
+</resources>
