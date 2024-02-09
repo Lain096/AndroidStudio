@@ -15,14 +15,16 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_marginRight="200dp"
+
+            android:layout_width="500sp"
+            app:title="GAME"
             android:layout_gravity="center"
-            android:layout_width="1500sp"
+            app:titleTextColor="@color/white"
             android:layout_height="100sp"
             android:background="@color/redish"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme">
-
+            android:theme="?attr/actionBarTheme"/>
+<!--
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -32,7 +34,7 @@
                 android:textColor="@color/white"
                 android:textSize="70sp" />
         </androidx.appcompat.widget.Toolbar>
-
+-->
 
         <LinearLayout
             android:layout_width="match_parent"

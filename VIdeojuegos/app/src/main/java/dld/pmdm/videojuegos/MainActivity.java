@@ -13,6 +13,8 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -58,10 +60,9 @@ public class MainActivity extends AppCompatActivity implements FragmentCrearVide
 
 
         prefs = getSharedPreferences("file_fondo", MODE_PRIVATE);
+
         Boolean asd = prefs.getBoolean("estado", false);
         comprobarPrefs(asd);
-
-
 
 
         btnCrear.setOnClickListener(new View.OnClickListener() {
@@ -73,12 +74,6 @@ public class MainActivity extends AppCompatActivity implements FragmentCrearVide
                         .commit();
             }
         });
-
-
-
-
-
-
 
     }
 
@@ -132,6 +127,14 @@ public class MainActivity extends AppCompatActivity implements FragmentCrearVide
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater men = getMenuInflater();
+
+        men.inflate(R.menu.items, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements FragmentCrearVide
         SharedPreferences.Editor edit = prefs.edit();
         if(res){
             edit.putBoolean("estado", true);
-            edit.putInt("color", R.color.white);
+            prefs.edit().putInt("color", R.color.white);
         } else{
             edit.putBoolean("estado", true);
             edit.putInt("color", R.color.redish);
